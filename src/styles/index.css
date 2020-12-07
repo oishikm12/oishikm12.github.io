@@ -193,6 +193,7 @@ nav .nav-links ul li:hover {
 .linker a:hover {
   transform: scale(1.01);
   color: wheat;
+  text-decoration: underline;
   filter: drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.08))
     drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.08))
     drop-shadow(4px 4px 8px rgba(255, 255, 255, 0.08));

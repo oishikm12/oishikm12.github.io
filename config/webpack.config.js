@@ -187,10 +187,10 @@ const getStyleLoaders = (dev) => {
   }
 };
 
-const getImageLoaders = () => {
+const getImageLoaders = (dev) => {
   const loaders = [
     {
-      test: /\.bmp$/,
+      test: [/\.bmp$/, /\.webp$/],
       use: [
         {
           loader: 'url-loader',
@@ -202,7 +202,7 @@ const getImageLoaders = () => {
       ]
     },
     {
-      test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/, /\.svg$/],
+      test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
       use: [
         {
           loader: 'url-loader',
@@ -210,19 +210,16 @@ const getImageLoaders = () => {
             limit: config.imageInlineLimit,
             name: 'static/media/[name].[hash:8].[ext]'
           }
-        },
-        {
-          loader: 'image-webpack-loader',
-          options: {
-            disable: true,
-            webp: {
-              quality: 75
-            }
-          }
         }
       ]
     }
   ];
+
+  if (!dev) {
+    loaders[1].use.push({
+      loader: 'image-webpack-loader'
+    });
+  }
 
   return loaders;
 };
@@ -362,7 +359,7 @@ module.exports = (env, options) => {
             getHTMLLoader(),
             getJSLoaders(isDevMode),
             getStyleLoaders(isDevMode),
-            ...getImageLoaders(),
+            ...getImageLoaders(isDevMode),
             ...getFileLoaders()
           ]
         }
