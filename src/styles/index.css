@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 @font-face {
-  font-family: AlphaCentauri;
-  src: url(../assets/fonts/AlphaCentauri.ttf);
+  font-family: 'AlphaCentauri';
+  src: url('../assets/fonts/AlphaCentauri.ttf') format('ttf'),
+    url('../assets/fonts/AlphaCentauri.woff2') format('woff2'),
+    url('../assets/fonts/AlphaCentauri.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
@@ -39,6 +43,16 @@ nav {
   color: #fff;
   font-weight: 600;
   font-size: 2em;
+  transition: all 0.2s ease;
+}
+
+.logo a:hover {
+  color: bisque;
+}
+
+.logo a span {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 nav .nav-links ul {
@@ -55,15 +69,13 @@ nav .nav-links ul li a {
   color: white;
 }
 
-nav .nav-links ul li a i {
+nav .nav-links ul li a svg {
   transform: scale(1.6);
   transition: all 0.2s ease;
 }
 
-nav .nav-links ul li:hover {
-  filter: drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.08))
-    drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.08))
-    drop-shadow(4px 4px 8px rgba(255, 255, 255, 0.08));
+nav .nav-links ul li a svg:hover {
+  color: bisque;
 }
 
 .screen {
@@ -78,13 +90,13 @@ nav .nav-links ul li:hover {
   z-index: -10;
 }
 
-.rock1 {
+.rock {
   position: absolute !important;
   left: 10vw !important;
   top: 20vh !important;
 }
 
-.rock1 img {
+.rock img {
   width: 40%;
   filter: brightness(0.5);
 }
@@ -141,6 +153,16 @@ nav .nav-links ul li:hover {
   top: 25vh;
   z-index: 1;
   filter: brightness(0.7);
+  animation: revolution infinite 30s linear;
+}
+
+@keyframes revolution {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .mid {
@@ -199,6 +221,24 @@ nav .nav-links ul li:hover {
     drop-shadow(4px 4px 8px rgba(255, 255, 255, 0.08));
 }
 
+#cursor {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+#cursor-shape {
+  width: 15px;
+  height: 15px;
+  margin-top: -50%;
+  margin-left: -50%;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 @media screen and (max-width: 880px) {
   .fore {
     display: none !important;
@@ -216,5 +256,12 @@ nav .nav-links ul li:hover {
 @media screen and (max-width: 440px) {
   nav .nav-links ul li:nth-child(3) {
     padding-right: 0;
+  }
+}
+
+@media (any-pointer: coarse) {
+  #cursor,
+  #cursor-shape {
+    display: none;
   }
 }
